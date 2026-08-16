@@ -1,0 +1,12 @@
+{
+  "name": "dsh-voice-input-runtime",
+  "private": true,
+  "version": "1.0.0",
+  "description": "sherpa-onnx-node streaming ASR WebSocket sidecar for dsh-voice-input",
+  "type": "commonjs",
+  "license": "MIT",
+  "dependencies": {
+    "sherpa-onnx-node": "^1.13.5",
+    "ws": "^8.21.3"
+  }
+}
