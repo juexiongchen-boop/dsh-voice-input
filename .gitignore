@@ -1,0 +1,7 @@
+node_modules/
+*.tar.bz2
+models/
+voice-log.jsonl
+host-plugin.log
+*.tmp
+.DS_Store
