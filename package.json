@@ -1,0 +1,58 @@
+{
+  "name": "dsh-voice-input",
+  "version": "1.0.0",
+  "description": "DeepSeek Harness 输入框语音输入插件（单包双面）：宿主端 sherpa-onnx sidecar 生命周期管理 + 浏览器端麦克风按钮/实时字幕/断句回填/3 秒静音自动关闭",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-slots"
+      ],
+      "platform": "web"
+    }
+  },
+  "files": [
+    "lib/",
+    "src/",
+    "runtime/",
+    "install.ps1",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "voice-input",
+    "speech-to-text",
+    "sherpa-onnx",
+    "asr"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "*",
+    "@deepseek-ai/dsh-subprocess": "*",
+    "@deepseek-ai/dsh-client-ui-slots": "*",
+    "@deepseek-ai/dsh-client-ui-conversation": "*",
+    "react": "^18.2.0"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-subprocess": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-client-ui-slots": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-client-ui-conversation": {
+      "optional": true
+    }
+  }
+}
