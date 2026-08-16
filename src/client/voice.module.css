@@ -1,0 +1,72 @@
+.micBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.micSvg {
+  fill: var(--dsw-alias-button-info-fill);
+  opacity: 0.85;
+  transition: fill 100ms ease, opacity 100ms ease;
+}
+
+.micBtn:hover .micSvg {
+  fill: var(--dsw-alias-button-info-hover);
+  opacity: 1;
+}
+
+.micBtn[data-state='starting'] .micSvg {
+  fill: #e6a23c;
+  opacity: 1;
+  animation: voicePulse 1.1s ease-in-out infinite;
+}
+
+.micBtn[data-state='listening'] .micSvg,
+.micBtn[data-state='listening'] .pendingSvg {
+  fill: #f56c6c;
+  opacity: 1;
+  animation: voicePulse 1.1s ease-in-out infinite;
+}
+
+.micBtn[data-state='error'] .micSvg {
+  fill: #f56c6c;
+  opacity: 1;
+}
+
+@keyframes voicePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.livePill {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 70vw;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(103, 158, 254, 0.8);
+  border: 1.5px solid rgba(57, 100, 254, 0.55);
+  box-shadow: 0 6px 18px rgba(57, 100, 254, 0.4);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #fff;
+  pointer-events: none;
+  white-space: pre-wrap;
+  z-index: 20;
+}
+
+.livePill .pendingSvg {
+  fill: #fff;
+  vertical-align: middle;
+  margin-right: 7px;
+  animation: voicePulse 1.1s ease-in-out infinite;
+}
