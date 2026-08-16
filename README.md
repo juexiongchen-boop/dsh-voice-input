@@ -13,6 +13,27 @@ sherpa-onnx 流式识别 sidecar，边说话边出字，断句后自动追加进
 - 静音 3 秒且无待提交文字时自动停止录音（权威检测在 sidecar，空断句免疫）
 - 全本地离线识别：中英双语流式 + 自动标点，CPU 实时（实测 RTF ≈ 0.12）
 
+## 语音识别方案
+
+| 层 | 选型 |
+| --- | --- |
+| 推理框架 | [k2-fsa/sherpa-onnx](https://github.com/k2-fsa/sherpa-onnx)（ONNX Runtime，Apache-2.0） |
+| Node 绑定 | `sherpa-onnx-node`（流式 `OnlineRecognizer`） |
+| 主模型 | `sherpa-onnx-x-asr-480ms-streaming-zipformer-transducer-zh-en-punct-int8-2026-06-05` —— X-ASR 流式 Zipformer-Transducer，**中英双语 + 自动标点**，480ms 延迟块，int8 量化约 128MB |
+| 备用模型 | `sherpa-onnx-streaming-zipformer-zh-int8-2025-06-30`（纯中文流式） |
+| 音频规格 | 16kHz 单声道 16-bit PCM（浏览器 `getUserMedia` 采集，AudioContext 重采样） |
+| 断句 | sherpa-onnx 内置端点检测（1.2s / 2.4s 静音双规则） |
+| 实测性能 | CPU 单线程 **RTF ≈ 0.12**（8 倍实时），**首字延迟 ≈ 69ms** |
+
+**为什么不是 Whisper / FunASR / transformers.js**：
+
+- 中文准确率：FunASR 官方基准（184 段中文长音频）中 Whisper-large-v3 字错率
+  20%，Paraformer/SenseVoice 系 8–10%——差 2 倍以上；
+- FunASR 中文效果强，但需要 Python sidecar，GPU 才能发挥优势；
+- transformers.js 纯浏览器零后端，但**非流式**（"说完→出字"）且占页面内存；
+- sherpa-onnx 是唯一同时满足 **Node 原生 + 真流式（边说话边出字）+ 中文强 +
+  全离线 CPU 实时 + Apache-2.0 + 维护极活跃** 的选项，与 DSH 的 Node 宿主天然同构。
+
 ## 架构
 
 ```
